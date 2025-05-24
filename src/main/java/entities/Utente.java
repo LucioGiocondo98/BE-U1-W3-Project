@@ -20,11 +20,11 @@ public class Utente {
 
     public Utente() {}
 
-    public Utente(String nome, String cognome, LocalDate dataNascita, int numeroTessera) {
+    public Utente(String nome, String cognome, LocalDate dataNascita) {
         this.nome = nome;
         this.cognome = cognome;
         this.dataNascita = dataNascita;
-        this.numeroTessera = numeroTessera;
+
     }
 
 
@@ -70,7 +70,13 @@ public class Utente {
 
     @Override
     public String toString() {
-        return super.toString();
+        return "Utente{" +
+                "numeroTessera=" + numeroTessera +
+                ", nome='" + nome + '\'' +
+                ", cognome='" + cognome + '\'' +
+                ", dataNascita=" + dataNascita +
+                '}';
     }
+
 }
 

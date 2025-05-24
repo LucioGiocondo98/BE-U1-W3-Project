@@ -1,8 +1,9 @@
 package dao;
 
+import entities.Catalogo;
 import entities.Prestito;
-import entities.Utente;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -14,21 +15,26 @@ public class PrestitoDAO {
         this.em = em;
     }
 
+
     public void salvaPrestito(Prestito prestito) {
         em.getTransaction().begin();
         em.persist(prestito);
         em.getTransaction().commit();
     }
-    public List<Prestito> prestitiInCorso(int numeroTessera) {
-        return em.createQuery(
+    public List<Prestito> trovaPrestitiAttiviPerUtente(int numeroTessera) {
+        TypedQuery<Prestito> query = em.createQuery(
                 "SELECT p FROM Prestito p WHERE p.utente.numeroTessera = :tessera AND p.dataRestituzioneEffettiva IS NULL",
-                Prestito.class
-        ).setParameter("tessera", numeroTessera).getResultList();
+                Prestito.class);
+        query.setParameter("tessera", numeroTessera);
+        return query.getResultList();
     }
-    public List<Prestito> prestitiScadutiNonRestituiti() {
-        return em.createQuery(
-                "SELECT p FROM Prestito p WHERE p.dataRestituzionePrevista < :oggi AND p.dataRestituzioneEffettiva IS NULL",
-                Prestito.class
-        ).setParameter("oggi", LocalDate.now()).getResultList();
+
+    // Prestiti scaduti e non ancora restituiti
+    public List<Prestito> trovaPrestitiScaduti() {
+        TypedQuery<Prestito> query = em.createQuery(
+                "SELECT p FROM Prestito p WHERE p.dataPrevistaRestituzione < :oggi AND p.dataRestituzioneEffettiva IS NULL",
+                Prestito.class);
+        query.setParameter("oggi", LocalDate.now());
+        return query.getResultList();
     }
 }
