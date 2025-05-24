@@ -7,17 +7,13 @@ import java.util.List;
 public class Utente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    @Column(name = "numero_tessera")
+    private int numeroTessera;
     private String nome;
     private String cognome;
-
     @Column(name = "data_nascita")
     private LocalDate dataNascita;
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "numero_tessera")
-    private int numeroTessera;
 
     @OneToMany(mappedBy = "utente")
     private List<Prestito> prestiti;
@@ -31,13 +27,6 @@ public class Utente {
         this.numeroTessera = numeroTessera;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getNome() {
         return nome;
@@ -78,4 +67,10 @@ public class Utente {
     public void setPrestiti(List<Prestito> prestiti) {
         this.prestiti = prestiti;
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }
+

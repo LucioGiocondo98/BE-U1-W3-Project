@@ -40,6 +40,22 @@ public abstract class Catalogo {
         return numeroPagine;
     }
 
+    public void setIsbn(int isbn) {
+        this.isbn = isbn;
+    }
+
+    public void setTitolo(String titolo) {
+        this.titolo = titolo;
+    }
+
+    public void setAnnoPubblicazione(int annoPubblicazione) {
+        this.annoPubblicazione = annoPubblicazione;
+    }
+
+    public void setNumeroPagine(int numeroPagine) {
+        this.numeroPagine = numeroPagine;
+    }
+
     @Override
     public String toString() {
         return "Catalogo{" +

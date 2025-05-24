@@ -23,17 +23,21 @@ public class Libro extends Catalogo {
         return genere;
     }
 
+    public void setAutore(String autore) {
+        this.autore = autore;
+    }
+
+    public void setGenere(String genere) {
+        this.genere = genere;
+    }
 
     @Override
     public String toString() {
         return "Libro{" +
                 "autore='" + autore + '\'' +
                 ", genere='" + genere + '\'' +
-                ", isbn=" + isbn +
-                ", titolo='" + titolo + '\'' +
-                ", annoPubblicazione=" + annoPubblicazione +
-                ", numeroPagine=" + numeroPagine +
-                '}';
+                "} " + super.toString();
     }
 }
+
 

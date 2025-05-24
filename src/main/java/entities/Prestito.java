@@ -2,6 +2,7 @@ package entities;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.StringJoiner;
 
 @Entity
 public class Prestito {
@@ -79,5 +80,19 @@ public class Prestito {
 
     public void setDataRestituzioneEffettiva(LocalDate dataRestituzioneEffettiva) {
         this.dataRestituzioneEffettiva = dataRestituzioneEffettiva;
+    }
+
+
+    @Override
+    public String toString() {
+        return "\
+                Prestito{
+                    id=$id,
+                    utente=$utente,
+                    elementoPrestato=$elementoPrestato,
+                    dataInizio=$dataInizio,
+                    dataPrevistaRestituzione=$dataPrevistaRestituzione,
+                    dataRestituzioneEffettiva=$dataRestituzioneEffettiva
+                }"
     }
 }
