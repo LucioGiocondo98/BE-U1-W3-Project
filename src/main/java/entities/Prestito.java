@@ -85,14 +85,13 @@ public class Prestito {
 
     @Override
     public String toString() {
-        return "\
-                Prestito{
-                    id=$id,
-                    utente=$utente,
-                    elementoPrestato=$elementoPrestato,
-                    dataInizio=$dataInizio,
-                    dataPrevistaRestituzione=$dataPrevistaRestituzione,
-                    dataRestituzioneEffettiva=$dataRestituzioneEffettiva
-                }"
+        return "Prestito{" +
+                "utente=" + utente.getNome() + " " + utente.getCognome() +
+                ", elemento=" + elementoPrestato.getTitolo() +
+                ", restituzione prevista=" + dataPrevistaRestituzione +
+                ", restituzione effettiva=" + dataRestituzioneEffettiva +
+                '}';
     }
+
 }
+
