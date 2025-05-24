@@ -9,36 +9,43 @@ import java.util.List;
 public class CatalogoDAO {
         private EntityManager em;
 
-        public CatalogoDAO(EntityManager em) {
-            this.em = em;
-        }
-
-        public void add(Catalogo catalogo) {
-            em.persist(catalogo);
-        }
-
-        public void remove(int isbn) {
-            Catalogo catalogo = em.find(Catalogo.class, isbn);
-            if (catalogo != null) {
-                em.remove(catalogo);
-            }
-        }
-
-        public Catalogo findByIsbn(int isbn) {
-            return em.find(Catalogo.class, isbn);
-        }
-
-        public List<Catalogo> findByAnnoPubblicazione(int anno) {
-            TypedQuery<Catalogo> query = em.createQuery("SELECT c FROM Catalogo c WHERE c.annoPubblicazione = :anno", Catalogo.class);
-            query.setParameter("anno", anno);
-            return query.getResultList();
-        }
-
-        public List<Catalogo> findByTitolo(String titolo) {
-            TypedQuery<Catalogo> query = em.createQuery("SELECT c FROM Catalogo c WHERE c.titolo LIKE :titolo", Catalogo.class);
-            query.setParameter("titolo", "%" + titolo + "%");
-            return query.getResultList();
+    public CatalogoDAO(EntityManager em) {
+        this.em = em;
+    }
+    public void salvaElemento(Catalogo elemento){
+        em.getTransaction().begin();
+        em.persist(elemento);
+        em.getTransaction().commit();
+    }
+    public Catalogo trovaPerIsbn(int isbn){
+        return em.find(Catalogo.class,isbn);
+    }
+    public void rimuoviPerISBN(int isbn) {
+        Catalogo elemento = trovaPerIsbn(isbn);
+        if (elemento != null) {
+            em.getTransaction().begin();
+            em.remove(elemento);
+            em.getTransaction().commit();
         }
     }
+
+    public List<Catalogo> cercaPerTitolo(String parteTitolo) {
+        return em.createQuery("SELECT c FROM Catalogo c WHERE LOWER(c.titolo) LIKE LOWER(:titolo)", Catalogo.class)
+                .setParameter("titolo", "%" + parteTitolo + "%")
+                .getResultList();
+    }
+
+    public List<Catalogo> cercaPerAnno(int anno) {
+        return em.createQuery("SELECT c FROM Catalogo c WHERE c.annoPubblicazione = :anno", Catalogo.class)
+                .setParameter("anno", anno)
+                .getResultList();
+    }
+
+    public List<Catalogo> cercaPerAutore(String autore) {
+        return em.createQuery("SELECT c FROM Catalogo c WHERE c.autore = :autore", Catalogo.class)
+                .setParameter("autore", autore)
+                .getResultList();
+    }
+}
 
 
